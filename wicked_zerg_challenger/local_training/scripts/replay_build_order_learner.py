@@ -822,34 +822,13 @@ def main():
     print("\nThese parameters will be used by production_manager.py")
     print("="*70 + "\n")
 
-    # Auto commit after training (if enabled)
-    auto_commit_enabled = os.environ.get("AUTO_COMMIT_AFTER_TRAINING", "false").lower() == "true"
-    if auto_commit_enabled:
-        print("\n[INFO] Auto commit enabled - committing changes...")
-        try:
-            import subprocess
-            import sys
-            # CRITICAL: From local_training/scripts/ to tools/ requires parents[2]
-            # Path structure: scripts/ -> local_training/ -> wicked_zerg_challenger/ (project root) -> tools/
-            script_file = Path(__file__).resolve()
-            script_path = script_file.parents[2] / "tools" / "auto_commit_after_training.py"
-            if script_path.exists():
-                result = subprocess.run(
-                    [sys.executable, str(script_path)],
-                    cwd=str(script_file.parents[2]),  # Project root for cwd
-                    capture_output=True,
-                    text=True,
-                    encoding='utf-8',
-                    errors='replace'
-                )
-                if result.returncode == 0:
-                    print("[OK] Auto commit completed successfully")
-                else:
-                    print(f"[WARNING] Auto commit failed: {result.stderr}")
-            else:
-                print(f"[WARNING] Auto commit script not found: {script_path}")
-        except Exception as e:
-            print(f"[WARNING] Auto commit error: {e}")
+    # Auto commit after training (DISABLED - results saved to strategy_db.json only)
+    # Results are saved to:
+    # 1. strategy_db.json (in replay directory) - via StrategyDatabase.add_strategy()
+    # 2. learned_build_orders.json (in archive directory) - via save_learned_parameters()
+    # 3. learned_build_orders.json (in local_training/scripts/) - via update_config_with_learned_params()
+    print("\n[INFO] Results saved to strategy_db.json and learned_build_orders.json")
+    print("[INFO] Auto commit disabled - results saved only")
 
 
 if __name__ == "__main__":
