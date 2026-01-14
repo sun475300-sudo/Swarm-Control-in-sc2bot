@@ -2393,7 +2393,7 @@ class WickedZergBotPro(BotAI):
         # strategy_engine removed: StrategyHub handles all strategy logic
 
     def _decide_strategy(self):
-        """전략 결정 - StrategyHub로 위임"""
+        """Strategy decision - delegated to StrategyHub"""
         if self.strategy_hub:
             self.strategy_hub.update_strategy()
         # strategy_engine removed: StrategyHub handles all strategy logic
@@ -5077,7 +5077,7 @@ class WickedZergBotPro(BotAI):
             pass
 
     async def on_end(self, game_result):
-        """게임 종료 - 학습 보상 계산 및 로깅"""
+        """Game end - calculate learning reward and log"""
         # Ensure game_ended flag is set to prevent any further on_step execution
         self.game_ended = True
 
@@ -5472,13 +5472,13 @@ class WickedZergBotPro(BotAI):
                             if self.time > 120:  # After 2 minutes
                                 rogue_reward += 0.2
 
-                        # 적이 점막에 닿았을 때 드랍 준비 보상
+                        # Reward when enemy touches creep (drop preparation)
                         enemy_on_creep, enemy_advancing = self.rogue_tactics.get_enemy_on_creep_status()
                         if enemy_on_creep and enemy_advancing:
-                            # 적이 점막에 전진 중이면 보상 (의사결정 보상)
+                            # Reward if enemy advancing on creep (decision reward)
                             rogue_reward += 0.1
 
-                        # 드랍 준비 상태 보상
+                        # Drop preparation state reward
                         if self.rogue_tactics.get_drop_readiness():
                             rogue_reward += 0.05
                     except Exception as e:
@@ -5946,10 +5946,10 @@ class WickedZergBotPro(BotAI):
 
     def _log_training_stats(self, game_result):
         """
-        승률 및 누적 학습 횟수를 log.txt에 기록
+        Record win rate and cumulative training count to log.txt
 
         Args:
-            game_result: 게임 결과 (Victory, Defeat 등)
+            game_result: Game result (Victory, Defeat, etc.)
         """
 
         # CRITICAL: Log files go to logs/ directory (project root)

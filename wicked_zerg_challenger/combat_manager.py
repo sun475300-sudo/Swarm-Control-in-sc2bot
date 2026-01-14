@@ -1396,7 +1396,7 @@ class CombatManager:
                     await b.do(zergling.attack(self.harass_target))
 
     async def _micro_units(self):
-        """개별 유닛 마이크로 컨트롤"""
+        """Individual unit micro control"""
         await self._micro_zerglings()
         await self._micro_banelings()
         await self._micro_roaches()
@@ -1500,10 +1500,10 @@ class CombatManager:
                 except Exception:
                     pass  # Fallback to general baneling control
 
-        # 일반 맹독충 컨트롤 (Protoss/Zerg 상대 또는 Terran 비해병 상대)
+        # General baneling control (vs Protoss/Zerg or Terran non-marines)
         engage_range_squared = self.config.ENGAGE_DISTANCE * self.config.ENGAGE_DISTANCE
 
-        # 적 유닛을 타입별로 그룹화하여 클러스터 찾기
+        # Group enemy units by type to find clusters
         enemy_clusters = self._find_enemy_clusters(enemy_units, max_clusters=3)
 
         for baneling in banelings:
@@ -1591,10 +1591,10 @@ class CombatManager:
             ))
             return [(center, enemy_units)]
 
-        # 간단한 거리 기반 클러스터링
+        # Simple distance-based clustering
         clusters = []
         used_units = set()
-        cluster_radius = 5.0  # 클러스터 반경
+        cluster_radius = 5.0  # Cluster radius
 
         for enemy in enemy_units:
             if enemy.tag in used_units:
@@ -1623,7 +1623,7 @@ class CombatManager:
         return clusters
 
     async def _micro_roaches(self):
-        """로치 컨트롤"""
+        """Roach control"""
         b = self.bot
 
         intel = getattr(b, "intel", None)
@@ -1670,7 +1670,7 @@ class CombatManager:
                         await b.do(roach.move(target.position))
 
     async def _micro_hydralisks(self):
-        """히드라리스크 컨트롤 (원거리 딜러)"""
+        """Hydralisk control (ranged DPS)"""
         b = self.bot
 
         intel = getattr(b, "intel", None)
@@ -1997,7 +1997,7 @@ class CombatManager:
         return army_units
 
     def _get_retreat_position(self, unit: Unit) -> Point2:
-        """후퇴 위치 계산"""
+        """Calculate retreat position"""
         b = self.bot
 
         townhalls = [th for th in b.townhalls]
@@ -2044,7 +2044,7 @@ class CombatManager:
         return total_distance / len(army)
 
     def get_combat_status(self) -> dict:
-        """현재 전투 상태 반환"""
+        """Return current combat status"""
         return {
             "is_attacking": self.is_attacking,
             "is_retreating": self.is_retreating,
@@ -2055,11 +2055,11 @@ class CombatManager:
         }
 
     def set_attack_target(self, target: Point2):
-        """공격 목표 설정"""
+        """Set attack target"""
         self.attack_target = target
 
     def set_rally_point(self, point: Point2):
-        """집결지 설정"""
+        """Set rally point"""
         self.rally_point = point
 
     def _can_attrit_enemy_units(self) -> bool:

@@ -951,7 +951,7 @@ class ProductionManager:
         return False
 
     async def _produce_queen(self):
-        """여왕 생산 (부화장마다 1마리)"""
+        """Produce queens (1 per hatchery)"""
         b = self.bot
 
         if not self._has_required_building(UnitTypeId.SPAWNINGPOOL):
@@ -4500,7 +4500,7 @@ class ProductionManager:
         return False
 
     def _get_required_building(self, unit_type: UnitTypeId) -> Optional[UnitTypeId]:
-        """유닛 생산에 필요한 건물 반환"""
+        """Return building required for unit production"""
         requirements = {
             UnitTypeId.ZERGLING: UnitTypeId.SPAWNINGPOOL,
             UnitTypeId.BANELING: UnitTypeId.BANELINGNEST,
@@ -4516,7 +4516,7 @@ class ProductionManager:
         return requirements.get(unit_type)
 
     def _has_required_building(self, building: UnitTypeId) -> bool:
-        """필수 건물 보유 여부를 확인 (sticky 플래그와 진행률 허용)"""
+        """Check if required building exists (allows sticky flag and progress)"""
         b = self.bot
 
         try:
@@ -4552,7 +4552,7 @@ class ProductionManager:
         return False
 
     def get_production_status(self) -> dict:
-        """현재 생산 상태 반환"""
+        """Return current production status"""
         b = self.bot
         larvae = [u for u in b.units(UnitTypeId.LARVA)]
         zerglings = [u for u in b.units(UnitTypeId.ZERGLING)]
@@ -4790,7 +4790,7 @@ class ProductionManager:
         return False
 
     def set_enemy_race(self, race: EnemyRace):
-        """상대 종족 설정"""
+        """Set opponent race"""
         if self.enemy_race != race:
             self.enemy_race = race
             print(f"[TARGET] 상대 종족 감지: {race.name}")
