@@ -37,3 +37,5 @@ Personality: reynor
 [19:12:24] [WARNING] Unit deaths detected: 6 units lost, Army: 44 -> 38
 [19:12:25] [WARNING] Unit deaths detected: 4 units lost, Army: 38 -> 34
 [19:12:27] [WARNING] Unit deaths detected: 2 units lost, Army: 34 -> 32
+[19:13:45] [INFO] Match result: DEFEAT
+[19:13:45] [ERROR] Failed to record opponent data: local variable 'opponent_race_str' referenced before assignment
