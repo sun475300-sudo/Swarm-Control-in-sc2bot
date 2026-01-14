@@ -725,8 +725,10 @@ class ReplayBuildOrderExtractor:
 def update_config_with_learned_params(learned_params: Dict[str, float]):
     """Update config.py with learned parameters"""
     # Try multiple config.py locations
+    # CRITICAL: From local_training/scripts/ to project root requires .parent.parent.parent
     possible_config_paths = [
-        Path(__file__).parent.parent.parent / "config.py",  # Project root
+        Path(__file__).parent.parent.parent / "config.py",  # Project root (wicked_zerg_challenger/)
+        Path(__file__).parent.parent / "config.py",  # local_training/ directory
         Path(__file__).parent / "config.py",  # Scripts directory
     ]
     config_path = None
@@ -823,9 +825,9 @@ def main():
         print("\n[INFO] Auto commit enabled - committing changes...")
         try:
             import subprocess
+            import sys
             script_path = Path(__file__).parent.parent / "tools" / "auto_commit_after_training.py"
             if script_path.exists():
-                import sys
                 result = subprocess.run(
                     [sys.executable, str(script_path)],
                     cwd=str(Path(__file__).parent.parent),
