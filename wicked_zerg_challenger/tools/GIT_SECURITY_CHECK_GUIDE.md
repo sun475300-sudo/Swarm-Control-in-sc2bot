@@ -47,7 +47,7 @@ Git 커밋 전에 민감한 정보(API 키, 비밀번호 등)가 포함되지 �
 - OpenAI API Key: `sk-[A-Za-z0-9]{32,}`
 - Slack Token: `xox[baprs]-[0-9]{10,13}-...`
 - 일반 해시: `[0-9a-f]{32}`, `[0-9a-f]{40}`
-- 알려진 API 키: `AIzaSyBDdPWJyXs56AxeCPmqZpySFOVPjjSt_CM`
+- 주의: 구체적인 API 키 예시는 보안상의 이유로 스크립트에서 제외됨 (패턴만 사용)
 
 ### 2. 비밀번호/토큰 패턴
 
